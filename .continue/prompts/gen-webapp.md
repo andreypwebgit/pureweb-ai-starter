@@ -1,40 +1,27 @@
 ---
-name: Generar Web App Zero-Deps
+name: Generar Web App de la Guía Copilot+Continue (Zero-Deps)
 alwaysApply: false
 ---
 
-## USER PROMPT — Encargo de Web App basada en los adjuntos
+## Objetivo
+Construir **una Web App de documentación práctica** para ayudar a programadores a **usar GitHub Copilot + Continue en VS Code con OpenRouter (BYOK)**, basada **estrictamente** en los adjuntos disponibles del repo:
+- `docs/git_hub_copilot_and_continue_integration.md`
 
-**Contexto:** Te adjunto `git_hub_copilot_and_continue_integration.md` y `GitHub Copilot and Continue Integration.pdf`. Úsalos como **fuente de verdad** para flujo de trabajo y manejo de contexto del repositorio.
+La web **no es un sitio sobre la filosofía**; la **aplica** (Zero Dependencies / Maximum Performance) y **enseña** a implementar la integración paso a paso: instalación, configuración `config.yaml`, manejo de contexto (@Codebase/@Tree/@repo-map), solución de errores (Apply, rate limits 429), plantillas de prompts y modelos.
 
-**Objetivo:** Crea una **Web App** que cumpla nuestra filosofía **“Zero Dependencies, Maximum Performance”** y los siguientes **pilares**:
-- HTML5 puro (semántico)  
-- Performance-First (≥95/100 PSI; optimiza LCP/INP/CLS)  
-- Client-Side AI prioritaria (Transformers.js / ONNX Web; Web Workers)  
-- SEO orgánico  
-- Security by Design (OWASP ASVS + GDPR/EU AI Act según riesgo)  
-- Progressive Enhancement  
-- WCAG 2.1 AA
+## Arquitectura (innegociable)
+- **Frontend:** HTML5 semántico puro, **JS ES6+ vanilla**, **Tailwind v4+ vía `npx @tailwindcss/cli`** (sin CDN).
+- **Sin frameworks** ni librerías externas de UI; **cero dependencias** de runtime.
+- **PWA:** `site.webmanifest` + `service-worker.js` (precache + SWR para assets; network-first para HTML).
+- **Accesibilidad:** WCAG 2.1 AA; foco visible, contraste, navegación por teclado, “skip link”.
+- **Seguridad:** CSP restrictiva, HSTS, `Referrer-Policy`, `Permissions-Policy`. Formularios saneados si los hubiera.
+- **Performance-First:** PSI objetivo ≥95 (móvil/desktop); optimiza LCP/INP/CLS; JS inicial ≤ 80KB gz (si viable).
+- **SEO:** HTML semántico, `robots.txt`, `sitemap.xml`. Sin dependencias para búsqueda: **buscador local** simple (JS) sobre índice en memoria.
 
-**Stack específico:**  
-Tailwind v4+ **via npx** (no CDN), JS ES6+ vanilla modular, Service Worker + Web Manifest; opcionalmente IA en cliente (Transformers.js, ONNX Runtime Web, MediaPipe, Compromise.js). Backend opcional: PHP en `/api/` o serverless `/functions/` (elige y documenta).
-
-**Lo que necesito en la salida (formato obligatorio):**
-1) **Árbol real** del proyecto y **diagrama Mermaid `graph TD`** (IDs seguros, etiquetas en `[...]`).  
-2) **Todos los archivos** en bloques de código, cada uno con:  
-   - `# filename: ruta`  
-   - `<!-- Propósito: … -->` en la primera línea  
-   - Contenido completo y funcional  
-3) **README.md** con: requisitos, instalación, build, preview, deploy, medición PSI/Lighthouse, accesibilidad (WCAG), seguridad (OWASP), PWA checklist.  
-4) **PWA** completa (`site.webmanifest` + `service-worker.js` con estrategias citadas).  
-5) **Optimización**: Critical CSS inline, lazy images, budgets (JS inicial ≤ 80 KB gz si procede), WebP/AVIF, split de CSS residual.  
-6) **Seguridad**: CSP no permisiva, HSTS, `Referrer-Policy`, `Permissions-Policy`; saneado/CSRF si hay formularios/API.  
-7) **Justificación** breve de las decisiones de rendimiento/seguridad/accesibilidad en el README.
-
-**Notas operativas:**
-- Si no puedes ver los adjuntos, **pídelos** antes de continuar.  
-- Si el contenido excede el límite, **entrega en bloques**: (1) árbol+Mermaid, (2) HTMLs, (3) CSS/JS, (4) SW/manifest, (5) API/serverless, (6) README.  
-- No añadas librerías no permitidas.  
-- Mantén **nombres y rutas** claros y consistentes.
-
-**Entrega ahora** la solución completa siguiendo estas reglas y el formato indicado.
+## Contenidos mínimos (derivados de los adjuntos)
+Páginas en `/` (una sección = una página o anchor):
+1. **Inicio** (qué es y para quién, CTA “Empezar ya”)
+2. **Pre-requisitos** (VS Code, extensiones, cuentas, API Key)
+3. **Config de Continue** (`config.yaml` + secretos `.env`; modelos OpenRouter; embeddings/reranker opcional)
+4. **Contexto del repo** (Workspace Index de Copilot, `@Codebase/@Tree/@repo-map/@Folder/@File`, `.continueignore`)
+5. **Flujos recomendados** (Copilot para overview/completions vs Continue para chat
