@@ -1,0 +1,21 @@
+﻿# Node/JS
+node_modules/
+dist/
+build/
+coverage/
+.tmp/
+.cache/
+
+# Env/credenciales
+.env
+.env.*
+
+# OS/IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# PWA / assets pesados
+assets/images/**
+assets/fonts/**
